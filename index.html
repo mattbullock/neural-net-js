@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <style>
+      .col {display: block; float: left; height: 100px; width: 5px;}
+      .cell {display: block; width: 100%; height: 5%;}
+      .selector {height: 50px; width:100%; background: gray;}
+      body {margin: 0px;}
+    </style>
+    <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="neural_network.js"></script>
+    <script type="text/javascript">
+      var X, y, nn, zeroes, dimensioned_y, preview, vectorize_y;
+      
+      zeroes = function (size) {
+        var arr = [size];
+        for (var i = 0; i < size; i++) {
+          arr[i] = 0;
+        }
+        return arr;
+      };
+
+      vectorize_y = function (training_label) {
+        var vectorized_training_label = zeroes(10);
+          
+        // relabel 0s - original labeled 10 for convenience in matlab
+        if (y[i][0] === 10) {
+          y[i][0] = 0;
+        }
+
+        // set the correct output node to 1
+        vectorized_training_label[y[i][0]] = 1;
+        
+        return vectorized_training_label;
+      };
+
+      // Draw the character in the training example, pixel by pixel
+      preview = function (example) {
+        var col, container;
+        
+        container = $('.character');
+        container.empty();
+        
+        for (var i = 0; i < example.length; i++) {
+          if (i % 20 === 0) {
+            col = $('<div></div>').addClass('col');
+            container.append(col);
+          }
+
+          // Data cleaning: convert to positive value if negative, then to a grayscale value
+          var gray = Math.round(Math.abs(example[i] * 255));
+          var cell = $('<div></div>').addClass('cell');
+          
+          cell.css('background','rgb('+gray+','+gray+','+gray+')');
+          col.append(cell);
+        }
+      };
+
+      $.when(
+        $.getJSON('X.json').done(function(data, status, jqxhr) { X = data; }),
+        $.getJSON('y.json').done(function(data, status, jqxhr) { y = data; })
+      ).then(function() {
+        
+        dimensioned_y = [];
+
+        for (var i = 0; i < X.length; i++) {
+          dimensioned_y.push( vectorize_y( y[i] ) );
+        }
+
+        nn = new NeuralNetwork([400, 25, 25, 10], {X:X, y:dimensioned_y});
+
+      });
+      
+    </script>
+      
+  </head>
+  <body>
+    <div class="character"></div>
+  </body>
+
+</html>
