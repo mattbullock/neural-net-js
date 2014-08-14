@@ -15,7 +15,7 @@ var shape = [400, 25, 10];                                          // the numbe
 var training_data = { X: training_examples, y: training_labels };   // training data, e.g. the data in X.json and y.json
 var options = { iterations: 100 };                                  // network options, currently just number of iterations
 
-neural_network = new NeuralNetwork( shape, training_data, options );
+var neural_network = new NeuralNetwork( shape, training_data, options );
 ```
 
 
