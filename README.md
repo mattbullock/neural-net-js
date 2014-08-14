@@ -45,4 +45,4 @@ Stylistic TODOs:
   * set training data and other options after instantiation
 
 Algorithmic TODOs:
-* Implement common network optimizations such as momentum
+* Implement common optimizations such as momentum learning and regularization
