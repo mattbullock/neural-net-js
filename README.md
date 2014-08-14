@@ -37,12 +37,11 @@ var outputs = neural_network.predict(example)
 
 
 
-Stylistic TODOs:
+TODOs:
 * AMD-ify and tidy up the code
+* Implement common optimizations such as momentum learning and regularization
 * Improve the neural network API so we can:
   * instantiate with already-learned weights
   * export learned weights
   * set training data and other options after instantiation
 
-Algorithmic TODOs:
-* Implement common optimizations such as momentum learning and regularization
