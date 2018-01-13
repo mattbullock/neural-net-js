@@ -9,6 +9,8 @@ The training data (X.json, y.json) is converted from the matlab files in the Cou
 
 
 
+
+
 To create a new network, specify the network shape and supply some data:
 ```javascript
 var shape = [400, 25, 10];                                          // the number of neurons in each layer
